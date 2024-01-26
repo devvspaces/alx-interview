@@ -1,7 +1,14 @@
 #!/usr/bin/python3
+"""Function that returns a pascal triangle
+"""
 
 
 def pascal_triangle(n):
+    """returns a list of lists of integers
+    representing the Pascal’s triangle of n
+    1. Returns an empty list if n <= 0
+    2. You can assume n will be always an integer
+    """
     triangles = []
 
     for a in range(n):
