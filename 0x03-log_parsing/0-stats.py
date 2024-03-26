@@ -2,7 +2,8 @@
 import re
 import sys
 
-pat = re.compile(r"\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3} - \[.*\] \"GET /projects/260 HTTP/1.1\" (\d{3}) (\d{1,4})")
+pat = re.compile(
+    r"\d+.\d+.\d+.\d+ - \[.*\] \"GET /\w+/260 HTTP/1.1\" (\d{3}) (\d{1,4})")
 
 file_size = 0
 status_codes = {}
@@ -20,7 +21,10 @@ def print_msg(file_size, status_codes):
 
 try:
     while True:
-        line = input()
+        try:
+            line = input()
+        except EOFError:
+            break
 
         match = pat.match(line)
         if not match:
