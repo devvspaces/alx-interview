@@ -40,7 +40,7 @@ try:
 
         if lines == 10:
             print_msg(file_size, status_codes)
-            status_codes.clear()
+            # status_codes.clear()
             lines = 0
 finally:
     print_msg(file_size, status_codes)
