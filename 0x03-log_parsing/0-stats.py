@@ -3,7 +3,9 @@ import re
 import sys
 
 pat = re.compile(
-    r"\d+.\d+.\d+.\d+ - \[.*\] \"GET /\w+/260 HTTP/1.1\" (\d{3}) (\d{1,4})")
+    r"[\w\.]+\s?-\s?\[.*\] \"GET /\w+/260 HTTP/1.1\" (\d{3}) (\d{1,4})")
+pat2 = re.compile(
+    r"[\w\.]+\s?-\s?\[.*\] \"GET /\w+/260 HTTP/1.1\" \w+ (\d{1,4})")
 
 file_size = 0
 status_codes = {}
@@ -28,6 +30,10 @@ try:
 
         match = pat.match(line)
         if not match:
+            match = pat2.match(line)
+            if match:
+                size = int(match.group(1))
+                file_size += size
             continue
 
         status_code = int(match.group(1))
@@ -40,7 +46,6 @@ try:
 
         if lines == 10:
             print_msg(file_size, status_codes)
-            # status_codes.clear()
             lines = 0
 finally:
     print_msg(file_size, status_codes)
